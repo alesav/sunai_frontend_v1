@@ -4,7 +4,7 @@ import { UserContext } from '../UserContext';
 import Navbar from './Navbar';
 import { Table } from 'flowbite-react';
 import { Button, Modal, TextInput, Textarea } from 'flowbite-react'
-import { HiPlus, HiOutlineExclamationCircle } from 'react-icons/hi'; 
+import { HiPlus } from 'react-icons/hi'; 
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -251,10 +251,7 @@ const Dashboard = () => {
               onChange={(e) => setNewCompanyName(e.target.value)}
               placeholder="Company name"
             />
-              value={newBotModel}
-              onChange={(e) => setNewBotModel(e.target.value)}
-              placeholder="Model"
-            />
+          
             <input
               className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
               type="text"
@@ -297,10 +294,6 @@ const Dashboard = () => {
               value={updateCompanyName}
               onChange={(e) => setUpdateCompanyName(e.target.value)}
               placeholder="New name of company"
-            />
-              value={newBotModel}
-              onChange={(e) => setNewBotModel(e.target.value)}
-              placeholder="Model"
             />
             <input
               className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
@@ -354,7 +347,7 @@ const Dashboard = () => {
               <Table.Cell>
               <Link to={`/embeddings?bot=${bot.id}`}>Embeddings</Link>
                 <button onClick={() => openEditBotPopup(bot)}>Edit</button>
-                <button onClick={() => deleteBot(bot.id)}>Delete</button>
+                <button >Delete</button>
               </Table.Cell>
             </Table.Row>
           ))}
@@ -450,11 +443,6 @@ const Dashboard = () => {
               onChange={(e) => setUpdateBotPrompt(e.target.value)}
               placeholder="Model">
             </Textarea>
-            {/* Add inputs for other bot properties here */}
-              value={newBotModel}
-              onChange={(e) => setNewBotModel(e.target.value)}
-              placeholder="Model"
-            />
             <input
               className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
               type="text"
