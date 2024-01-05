@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-dom';
 import { useEffect, useState} from 'react';
 import { useCookies } from 'react-cookie';
-import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import {jwtDecode} from 'jwt-decode';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
@@ -20,7 +19,7 @@ function App() {
 
   useEffect(() => {
     if (cookies.token) {
-      const decoded = jwt_decode(cookies.token);
+      const decoded = jwtDecode(cookies.token);
       console.log("Decoded: " + JSON.stringify(decoded));
       setUser(decoded);
       setUserData(decoded);
