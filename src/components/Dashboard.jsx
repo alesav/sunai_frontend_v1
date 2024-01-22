@@ -159,7 +159,26 @@ const Dashboard = () => {
     setEditBotPopupOpen(false);
   };
   
+  useEffect(() => {
+    fetch("https://cf1.smspm.workers.dev/dashboard", {
+      headers: {
+        Authorization: `Bearer ${cookies.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Dashboard357: " + JSON.stringify(data))
+        if(data.companies){
+          setCompanies(data.companies)
+          setSelectedCompanyId(data.companies[0].id)
+        }
+        setBots(data.bots)
+        
+      });
 
+  }, []);
+
+/*
   useEffect(() => {
     fetch("https://cf1.smspm.workers.dev/companies", {
       headers: {
@@ -179,6 +198,7 @@ const Dashboard = () => {
       .then((response) => response.json())
       .then((data) => setBots(data));
   }, []);
+*/
 
   return (
     <div>
@@ -188,9 +208,11 @@ const Dashboard = () => {
       {userData && (
         <div>
           <p>Welcome, {userData.name}!</p>
-          <p>Your username is {userData.username}.</p>
         </div>
       )}
+
+{companies.length > 0 && (                                              
+        <>  
       <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Companies</h2>
       <input
         type="text"
@@ -221,7 +243,7 @@ const Dashboard = () => {
           <Table.HeadCell>Actions</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {companies.map(company => (
+          {companies.length >0 ? companies.map(company => (
             <Table.Row key={company.id}>
               <Table.Cell>{company.id}</Table.Cell>
               <Table.Cell>{company.company_name}</Table.Cell>
@@ -230,7 +252,7 @@ const Dashboard = () => {
                 <button onClick={() => deleteCompany(company.id)}>Delete</button>
               </Table.Cell>
             </Table.Row>
-          ))}
+          )):''}
         </Table.Body>
       </Table>
       <div className="flex flex-wrap items-center gap-2 py-3">
@@ -239,6 +261,9 @@ const Dashboard = () => {
         <p>Add Company</p>
       </Button>
       </div>
+      </>                                                                   
+      )} 
+
 
       <Modal show={addCompanyPopupOpen} onClose={closeAddCompanyPopup}>
         <Modal.Header>Add New Company</Modal.Header>
